@@ -33,7 +33,7 @@ class TareaViewModel : ViewModel() {
         }
     }
 
-    fun agregarTareas(tarea: Tarea,context: Context) {
+    fun agregarTareas(tarea: Tarea) {
         tarea.id = UUID.randomUUID().toString()
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -45,7 +45,7 @@ class TareaViewModel : ViewModel() {
         }
     }
 
-    fun actualizarTareas(tarea: Tarea,context: Context) {
+    fun actualizarTareas(tarea: Tarea) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 db.collection("tareas").document(tarea.id).update(tarea.toMap()).await()
@@ -56,11 +56,11 @@ class TareaViewModel : ViewModel() {
         }
     }
 
-    fun borrarTareas(id:String,context: Context){
+    fun borrarTareas(id:String){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 db.collection("tareas").document(id).delete().await()
-                _listaTareas.postValue(_listaTareas.value?.filter { it.id == id })
+                _listaTareas.postValue(_listaTareas.value?.filter { it.id != id })
             } catch (e: Exception) {
                 e.printStackTrace()
             }

@@ -1,9 +1,6 @@
 package mx.edu.itesca.practica14
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,15 +26,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnAgregarTarea.setOnClickListener {
-            Toast.makeText(this, "AAA", Toast.LENGTH_LONG).show()
-
             val tarea = Tarea(
                 titulo = binding.etTitulo.text.toString(),
                 descripcion = binding.etDescripcion.text.toString()
             )
-            Toast.makeText(this, "AAA", Toast.LENGTH_LONG).show()
-            viewModel.agregarTareas(tarea, this)
-            Toast.makeText(this, "BBB", Toast.LENGTH_LONG).show()
+            viewModel.agregarTareas(tarea)
             binding.etTitulo.setText("")
             binding.etDescripcion.setText("")
         }
@@ -47,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             tareaEdit.descripcion = ""
             tareaEdit.titulo = binding.etTitulo.text.toString()
             tareaEdit.descripcion = binding.etDescripcion.text.toString()
-            viewModel.actualizarTareas(tareaEdit, this)
+            viewModel.actualizarTareas(tareaEdit)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -63,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun borrarTarea(id: String) {
-        viewModel.borrarTareas(id, this)
+        viewModel.borrarTareas(id)
     }
 
     fun actualizarTarea(tarea: Tarea) {
